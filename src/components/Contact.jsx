@@ -34,7 +34,7 @@ export default function Contact() {
   return (
     <section className="section" id="contact">
       <Reveal>
-        <p className="eyebrow blue">06 — Contact</p>
+        <p className="eyebrow blue">08 — Contact</p>
         <h2 className="section-title">Let's build something</h2>
       </Reveal>
 
