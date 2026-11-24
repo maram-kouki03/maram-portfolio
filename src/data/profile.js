@@ -7,7 +7,7 @@ export const profile = {
   email: 'maram.kouki@supcom.tn',
   github: 'https://github.com/maram-kouki03',
   linkedin: 'https://www.linkedin.com/in/maram-kouki-b51861244/',
-  resume: '/resume.pdf',
+  resume: '/resume_MK.pdf',
 }
 
 export const about = {

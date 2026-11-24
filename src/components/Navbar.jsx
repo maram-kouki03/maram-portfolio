@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Download, Sun, Moon, Menu, X } from 'lucide-react'
 import { useTheme } from '../context/ThemeContext.jsx'
+import { profile } from '../data/profile.js'
 
 const links = [
   ['Home', 'home'],
@@ -64,7 +65,7 @@ export default function Navbar() {
       </div>
 
       <div className="nav-right">
-        <a className="resume-btn" href="/resume.pdf" download>
+        <a className="resume-btn" href={profile.resume} download>
           Resume <Download size={15} />
         </a>
         <button className="theme-toggle" onClick={toggle} aria-label="Toggle theme">

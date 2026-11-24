@@ -83,7 +83,7 @@ maram-portfolio/
 ├── api/
 │   └── contact.js          # Serverless function → emails me via Resend
 ├── public/
-│   ├── resume.pdf
+│   ├── resume_MK.pdf
 │   ├── demos/               # project demo clips / screenshots
 │   └── certificates/        # certificate images
 ├── src/
