@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronDown } from 'lucide-react'
 import Reveal from './Reveal.jsx'
+import { about } from '../data/profile.js'
 
 export default function About() {
   const [open, setOpen] = useState(false)
@@ -15,13 +16,7 @@ export default function About() {
 
       <Reveal delay={0.05}>
         <div className="glass about-text">
-          <p>
-            ICT Engineering student at SUP'COM (Tunisia), specializing in AI,
-            deep learning, and software engineering. AI Engineer at WiseVision
-            building real-world ML systems. Strong math foundation, constantly
-            pushing my limits — from multi-agent AI to computer-vision
-            pipelines to full-stack apps.
-          </p>
+          <p>{about.summary}</p>
 
           <AnimatePresence initial={false}>
             {open && (
@@ -32,15 +27,7 @@ export default function About() {
                 exit={{ height: 0, opacity: 0 }}
                 transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
               >
-                <p>
-                  I like problems that sit between research and product: taking
-                  a model from a notebook to something deployed and useful. Lately
-                  that's meant shipping a computer-vision retail pipeline on a
-                  Jetson, wiring agentic systems with LangGraph, and building the
-                  dashboards and web apps around them. Outside of code I'm Quality
-                  Manager at SUP'COM Junior Enterprise and active in the ML and
-                  student community.
-                </p>
+                <p>{about.more}</p>
               </motion.div>
             )}
           </AnimatePresence>

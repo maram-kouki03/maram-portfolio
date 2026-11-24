@@ -1,7 +1,11 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { X } from 'lucide-react'
+import { X, Trophy, ScrollText, Users } from 'lucide-react'
 import { certificates } from '../data/certificates.js'
+import { awards } from '../data/achievements.js'
+import { activities } from '../data/profile.js'
+
+const AWARD_ICONS = { trophy: Trophy, patent: ScrollText }
 import Reveal from './Reveal.jsx'
 
 export default function Achievements() {
@@ -11,9 +15,29 @@ export default function Achievements() {
     <section className="section" id="achievements">
       <Reveal>
         <p className="eyebrow purple">05 — Proof</p>
-        <h2 className="section-title">Certificates</h2>
+        <h2 className="section-title">Achievements</h2>
       </Reveal>
 
+      <div className="award-grid">
+        {awards.map((a, i) => {
+          const Icon = AWARD_ICONS[a.icon] || Trophy
+          return (
+            <Reveal key={a.title} delay={i * 0.08}>
+              <div className={`award-card ${a.icon}`}>
+                <span className="award-ico"><Icon size={22} /></span>
+                <div>
+                  <h4>{a.title}</h4>
+                  <div className="meta">{[a.detail, a.year].filter(Boolean).join(' · ')}</div>
+                </div>
+              </div>
+            </Reveal>
+          )
+        })}
+      </div>
+
+      <Reveal>
+        <div className="sub-head">Certifications</div>
+      </Reveal>
       <div className="cert-grid">
         {certificates.map((c, i) => (
           <Reveal key={c.title} delay={(i % 4) * 0.06}>
@@ -35,6 +59,17 @@ export default function Achievements() {
           </Reveal>
         ))}
       </div>
+
+      <Reveal>
+        <div className="sub-head">Activities</div>
+        <div className="activity-row">
+          {activities.map((a) => (
+            <span key={a.org} className="chip activity-chip">
+              <Users size={14} /> {a.org} <b>· {a.role}</b>
+            </span>
+          ))}
+        </div>
+      </Reveal>
 
       <AnimatePresence>
         {zoom && (

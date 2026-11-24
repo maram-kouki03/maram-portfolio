@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { ArrowRight, Mail, Github, Linkedin, MapPin } from 'lucide-react'
 import Reveal from './Reveal.jsx'
+import { profile } from '../data/profile.js'
 
-const EMAIL = 'maram.kouki@supcom.tn'
+const EMAIL = profile.email
 
 export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', message: '' })
@@ -67,11 +68,11 @@ export default function Contact() {
               <span className="contact-ico"><Mail size={17} /></span>
               <span><div className="label">Email</div><div className="value">{EMAIL}</div></span>
             </a>
-            <a className="contact-card" href="https://github.com/maram-kouki03" target="_blank" rel="noreferrer">
+            <a className="contact-card" href={profile.github} target="_blank" rel="noreferrer">
               <span className="contact-ico"><Github size={17} /></span>
               <span><div className="label">GitHub</div><div className="value">github.com/maram-kouki03</div></span>
             </a>
-            <a className="contact-card" href="https://www.linkedin.com/in/maram-kouki-b51861244/" target="_blank" rel="noreferrer">
+            <a className="contact-card" href={profile.linkedin} target="_blank" rel="noreferrer">
               <span className="contact-ico"><Linkedin size={17} /></span>
               <span><div className="label">LinkedIn</div><div className="value">maram-kouki-b51861244</div></span>
             </a>

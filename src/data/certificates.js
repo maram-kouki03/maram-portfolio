@@ -4,22 +4,28 @@
 
 export const certificates = [
   {
-    title: 'Supervised Machine Learning: Regression and Classification',
-    issuer: 'Coursera',
-    year: '2026',
-    image: '/certificates/coursera.png',
-  },
-  {
     title: 'Fundamentals of Deep Learning',
     issuer: 'NVIDIA',
     year: '2026',
     image: '/certificates/nvidia.png',
   },
   {
+    title: 'Supervised Machine Learning: Regression and Classification',
+    issuer: 'Coursera',
+    year: '2026',
+    image: '/certificates/coursera.png',
+  },
+  {
     title: 'CCNA 1: Introduction to Networks',
     issuer: 'Cisco Networking Academy',
     year: '2026',
     image: '/certificates/ccna1.png',
+  },
+  {
+    title: 'Image Processing Onramp',
+    issuer: 'MathWorks',
+    year: '2026',
+    image: '/certificates/imageprocess.png',
   },
   {
     title: 'Core Signal Processing Techniques in MATLAB',
@@ -32,12 +38,6 @@ export const certificates = [
     issuer: 'MathWorks',
     year: '2026',
     image: '/certificates/signalprocess.png',
-  },
-  {
-    title: 'Image Processing Onramp',
-    issuer: 'MathWorks',
-    year: '2026',
-    image: '/certificates/imageprocess.png',
   },
   {
     title: 'Red Hat System Administration I',

@@ -1,8 +1,19 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Github, ExternalLink, X, ArrowRight } from 'lucide-react'
-import { projects } from '../data/projects.js'
+import { Github, ExternalLink, X, ArrowRight, Play } from 'lucide-react'
+import { projects, categories } from '../data/projects.js'
+import { profile } from '../data/profile.js'
 import Reveal from './Reveal.jsx'
+
+// Shown when a project has neither a demo video nor a screenshot.
+function MediaTile({ project }) {
+  return (
+    <div className="media-ph media-tile">
+      <div className="file">~/projects/{project.id}</div>
+      <div className="tile-tags">{project.tags.slice(0, 3).join(' · ')}</div>
+    </div>
+  )
+}
 
 function ProjectCard({ project, onOpen }) {
   return (
@@ -14,23 +25,20 @@ function ProjectCard({ project, onOpen }) {
       onKeyDown={(e) => (e.key === 'Enter' ? onOpen(project) : null)}
     >
       <div className="project-media">
-        {project.video ? (
+        {project.demoVideo ? (
           <video
-            src={project.video}
+            src={project.demoVideo}
             poster={project.poster || undefined}
             autoPlay
             muted
             loop
             playsInline
-            preload="auto"
+            preload="metadata"
           />
         ) : project.image ? (
-          <img src={project.image} alt={project.title} />
+          <img src={project.image} alt={project.title} loading="lazy" />
         ) : (
-          <div className="media-ph">
-            <div className="file">[ {project.file} ]</div>
-            hover = autoplay
-          </div>
+          <MediaTile project={project} />
         )}
       </div>
       <div className="project-body">
@@ -41,6 +49,11 @@ function ProjectCard({ project, onOpen }) {
             <span key={t} className="tag">{t}</span>
           ))}
         </div>
+        {project.demoVideo && (
+          <span className="demo-btn">
+            <Play size={14} /> Watch demo
+          </span>
+        )}
       </div>
     </div>
   )
@@ -48,6 +61,9 @@ function ProjectCard({ project, onOpen }) {
 
 export default function Projects() {
   const [selected, setSelected] = useState(null)
+  const [filter, setFilter] = useState('all')
+
+  const visible = filter === 'all' ? projects : projects.filter((p) => p.categories.includes(filter))
 
   return (
     <section className="section" id="projects">
@@ -56,16 +72,32 @@ export default function Projects() {
         <h2 className="section-title">Selected projects</h2>
       </Reveal>
 
+      <Reveal delay={0.05}>
+        <div className="filter-chips" role="tablist" aria-label="Filter projects">
+          {categories.map((c) => (
+            <button
+              key={c.id}
+              role="tab"
+              aria-selected={filter === c.id}
+              className={`chip filter-chip${filter === c.id ? ' active' : ''}`}
+              onClick={() => setFilter(c.id)}
+            >
+              {c.label}
+            </button>
+          ))}
+        </div>
+      </Reveal>
+
       <div className="projects-grid">
-        {projects.map((p, i) => (
-          <Reveal key={p.id} delay={i * 0.08}>
+        {visible.map((p, i) => (
+          <Reveal key={`${filter}-${p.id}`} delay={(i % 3) * 0.08}>
             <ProjectCard project={p} onOpen={setSelected} />
           </Reveal>
         ))}
       </div>
 
       <div className="projects-foot">
-        <a className="btn-ghost" href="https://github.com/maram-kouki03" target="_blank" rel="noreferrer">
+        <a className="btn-ghost" href={profile.github} target="_blank" rel="noreferrer">
           View All Projects <ArrowRight size={17} />
         </a>
       </div>
@@ -98,15 +130,12 @@ function ProjectModal({ project, onClose }) {
           <button className="modal-close" onClick={onClose} aria-label="Close">
             <X size={20} />
           </button>
-          {project.video ? (
-            <video src={project.video} poster={project.poster || undefined} controls autoPlay muted loop playsInline />
+          {project.demoVideo ? (
+            <video src={project.demoVideo} poster={project.poster || undefined} controls autoPlay muted loop playsInline />
           ) : project.image ? (
             <img src={project.image} alt={project.title} />
           ) : (
-            <div className="media-ph">
-              <div className="file">[ {project.file} ]</div>
-              drop your demo clip in /public
-            </div>
+            <MediaTile project={project} />
           )}
         </div>
         <div className="modal-body">
@@ -119,7 +148,7 @@ function ProjectModal({ project, onClose }) {
                 </a>
               )}
               {project.live && (
-                <a className="icon-btn" href={project.live} target="_blank" rel="noreferrer" aria-label="Live demo">
+                <a className="icon-btn" href={project.live} target="_blank" rel="noreferrer" aria-label="Live site">
                   <ExternalLink size={18} />
                 </a>
               )}

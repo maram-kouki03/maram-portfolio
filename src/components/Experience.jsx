@@ -16,13 +16,25 @@ function Timeline({ items, accent }) {
             <span className="tl-node" />
             <div className="tl-card">
               <div className="tl-period">{it.period}</div>
-              <h4>{it.title}</h4>
-              <div className="tl-org">{it.org}</div>
-              <ul>
-                {it.points.map((p, j) => (
-                  <li key={j}>{p}</li>
-                ))}
-              </ul>
+              <h4>{it.org}</h4>
+              {it.roles.map((r, j) => (
+                <div className="tl-role" key={j}>
+                  <div className="tl-role-head">
+                    <span className="tl-role-title">{r.title}</span>
+                    {r.current && <span className="tl-badge">Current</span>}
+                  </div>
+                  {(r.subtitle || (it.roles.length > 1 && r.period)) && (
+                    <div className="tl-org">
+                      {[r.subtitle, it.roles.length > 1 ? r.period : null].filter(Boolean).join(' · ')}
+                    </div>
+                  )}
+                  <ul>
+                    {r.points.map((p, k) => (
+                      <li key={k}>{p}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
             </div>
           </div>
         </Reveal>

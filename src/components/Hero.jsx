@@ -1,16 +1,17 @@
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowRight, Download } from 'lucide-react'
+import { profile } from '../data/profile.js'
 
 // Terminal script. Each line is a list of styled tokens so the $ prompt,
 // the > arrow and the output can each keep their own colour while typing.
 const LINES = [
   [{ c: 't-prompt', t: '$ ' }, { c: 't-cmd', t: 'whoami' }],
-  [{ c: 't-arrow', t: '> ' }, { c: 't-name', t: 'Maram Kouki' }],
+  [{ c: 't-arrow', t: '> ' }, { c: 't-name', t: profile.name }],
   [{ c: 't-prompt', t: '$ ' }, { c: 't-cmd', t: 'role --list' }],
-  [{ c: 't-arrow', t: '> ' }, { c: 't-out', t: 'AI Engineer · Full-Stack Developer' }],
+  [{ c: 't-arrow', t: '> ' }, { c: 't-out', t: profile.role }],
   [{ c: 't-prompt', t: '$ ' }, { c: 't-cmd', t: 'cat about.txt' }],
-  [{ c: 't-arrow', t: '> ' }, { c: 't-out', t: 'I build intelligent systems that solve real-world problems.' }],
+  [{ c: 't-arrow', t: '> ' }, { c: 't-out', t: profile.tagline }],
 ]
 
 const lineLength = (line) => line.reduce((n, tok) => n + tok.t.length, 0)
@@ -104,12 +105,12 @@ export default function Hero() {
           >
             View My Work <ArrowRight size={18} />
           </button>
-          <a className="btn-ghost" href="/resume.pdf" download>
+          <a className="btn-ghost" href={profile.resume} download>
             Download Resume <Download size={17} />
           </a>
-          <a className="social-icon" href="https://github.com/maram-kouki03" target="_blank" rel="noreferrer" aria-label="GitHub">GH</a>
-          <a className="social-icon" href="https://www.linkedin.com/in/maram-kouki-b51861244/" target="_blank" rel="noreferrer" aria-label="LinkedIn">in</a>
-          <a className="social-icon" href="mailto:maram.kouki@supcom.tn" aria-label="Email">@</a>
+          <a className="social-icon" href={profile.github} target="_blank" rel="noreferrer" aria-label="GitHub">GH</a>
+          <a className="social-icon" href={profile.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn">in</a>
+          <a className="social-icon" href={`mailto:${profile.email}`} aria-label="Email">@</a>
         </motion.div>
 
         <motion.div
